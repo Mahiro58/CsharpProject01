@@ -77,13 +77,18 @@ namespace ConsoleApp1
 
         public void ShowAvailableBooks()
         {
-            Console.WriteLine("Avalible books: ");
-            foreach (var book in Books)
+            if (Books.Count > 0)
             {
-                if (!book.isBorrowed)
+                List<Book> availableBooks = Books.Where(b => !b.isBorrowed).ToList();
+                availableBooks = availableBooks.OrderBy(b => b.Title).ToList();
+                foreach (Book book in availableBooks)
                 {
-                    Console.WriteLine($"{book.Title} by {book.Author} category: {book.Category}. ");
+                    Console.WriteLine($"{book.Title} by {book.Author} ({book.Year}) - {book.Category}");
                 }
+            }
+            else
+            {
+                Console.WriteLine("No books available.");
             }
         }
 
