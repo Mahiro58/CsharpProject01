@@ -10,10 +10,10 @@ namespace ConsoleApp1
         public string Title { get; }
         public string Author { get; }
         public int Year { get; }
-        public bool isBorrowed { get; }
+        public bool isBorrowed { get; private set; }
         public Category Category { get; }
 
-        public Book (long id, string title, string author, int year, bool isBorrowed, Category category)
+        public Book (long id, string title, string author, int year, Category category)
         {
             if (id <= 0)
             {
@@ -36,8 +36,32 @@ namespace ConsoleApp1
             Title = title;
             Author = author;
             Year = year;
-            this.isBorrowed = isBorrowed;
+            this.isBorrowed = false;
             Category = category;
+        }
+
+        public void Borrow()
+        {
+            if (isBorrowed)
+            {
+                throw new InvalidOperationException($"{Title} is already borrowed.");
+            }
+            else
+            {
+                isBorrowed = true;
+            }
+        }
+
+        public void Return()
+        {
+            if (!isBorrowed)
+            {
+                throw new InvalidOperationException($"{Title} is not borrowed.");
+            }
+            else
+            {
+                isBorrowed = false;
+            }
         }
     }
 }

@@ -42,5 +42,28 @@ namespace ConsoleApp1
             Email = email;
         }
 
+        public void BorrowBook(Book book)
+        {
+            if (BorrowedBooks.Contains(book))
+            {
+                throw new InvalidOperationException($"{FirstName} {LastName} has already borrowed {book.Title}.");
+            }
+            else
+            {
+                BorrowedBooks.Add(book);
+            }
+        }
+
+        public void ReturnBook(Book book)
+        {
+            if (!BorrowedBooks.Contains(book))
+            {
+                throw new InvalidOperationException($"{FirstName} {LastName} has not borrowed {book.Title}.");
+            }
+            else
+            {
+                BorrowedBooks.Remove(book);
+            }
+        }
     }
 }
