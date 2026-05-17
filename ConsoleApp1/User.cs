@@ -10,10 +10,11 @@ namespace ConsoleApp1
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }
+        public string Password { get; private set; }
 
         public List<Book> BorrowedBooks { get; } = new();
 
-        public User (long id, string firstName, string lastName, string email)
+        public User (long id, string firstName, string lastName, string email, string password)
         {
             if (id <= 0) 
             { 
@@ -35,11 +36,16 @@ namespace ConsoleApp1
             {
                 throw new ArgumentException("Email must contain '@' character.");
             }
+            if (password == null || password.Length < 6)
+            {
+                throw new ArgumentException("Password must be at least 6 characters long.");
+            }
 
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
+            Password = password;
         }
 
         public void BorrowBook(Book book)
@@ -63,6 +69,22 @@ namespace ConsoleApp1
             else
             {
                 BorrowedBooks.Remove(book);
+            }
+        }
+
+        public void ShowUserBorrowedBooks()
+        {
+            if (BorrowedBooks.Count == 0)
+            {
+                Console.WriteLine($"{FirstName} {LastName} has not borrowed any books.");
+            }
+            else
+            {
+                Console.WriteLine($"{FirstName} {LastName} has borrowed the following books:");
+                foreach (Book book in BorrowedBooks)
+                {
+                    Console.WriteLine($"{book.Title} by {book.Author}");
+                }
             }
         }
     }

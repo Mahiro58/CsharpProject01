@@ -10,7 +10,7 @@ namespace ConsoleApp1
         public string Title { get; }
         public string Author { get; }
         public int Year { get; }
-        public bool isBorrowed { get; private set; }
+        public bool IsBorrowed { get; private set; }
         public Category Category { get; }
 
         public Book (long id, string title, string author, int year, Category category)
@@ -36,31 +36,31 @@ namespace ConsoleApp1
             Title = title;
             Author = author;
             Year = year;
-            this.isBorrowed = false;
+            IsBorrowed = false;
             Category = category;
         }
 
         public void Borrow()
         {
-            if (isBorrowed)
+            if (IsBorrowed)
             {
                 throw new InvalidOperationException($"{Title} is already borrowed.");
             }
             else
             {
-                isBorrowed = true;
+                IsBorrowed = true;
             }
         }
 
         public void Return()
         {
-            if (!isBorrowed)
+            if (!IsBorrowed)
             {
                 throw new InvalidOperationException($"{Title} is not borrowed.");
             }
             else
             {
-                isBorrowed = false;
+                IsBorrowed = false;
             }
         }
     }
